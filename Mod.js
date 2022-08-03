@@ -1,30 +1,32 @@
 class Modifier {
-  constructor(image) {
-    this.img = image.get();
-    this.backup = image.get();
-    this.img.loadPixels();
-    this.show();
+  constructor(capture) {
+    this.img = capture;
     this.chars =
-      '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'.';
+      '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
+    this.colorSwap = false;
   }
 
-  show() {
+  show(frame) {
+    this.img = frame.get();
+    this.img.loadPixels();
+
     this.img.updatePixels();
-    this.img.filter(GRAY);
     image(this.img, 0, 0);
   }
 
-  reset() {
-    this.img = this.backup.get();
-    this.img.loadPixels();
-    this.show();
-  }
-
   convert(step) {
-    modifier.reset();
-    background(255);
-    // noStroke();
-    fill(0);
+    if (this.colorSwap) {
+      background(0);
+      fill(255);
+    } else {
+      background(255);
+      fill(0);
+    }
+
+    // Rave Mode
+    // fill(random(255), random(255), random(255));
+
+    // Tweak this value
     textSize(step + 2);
 
     let width = this.img.width;
@@ -49,11 +51,14 @@ class Modifier {
         outerHorizontal += step * 4
       ) {
         let shade = this.img.pixels[outerHorizontal]; // Greyscale Value
-        let charIndex = floor(map(shade, 255, 0, 68, 0));
+        let charIndex;
+        if (this.colorSwap) {
+          charIndex = floor(map(shade, 255, 0, 0, 68));
+        } else {
+          charIndex = floor(map(shade, 255, 0, 68, 0));
+        }
         let char = this.chars[charIndex];
 
-        // Debugging
-        if (char == ' ') console.log(char);
         text(char, x, y);
         x += step;
       }

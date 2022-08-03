@@ -11,25 +11,28 @@ A more convincing but shorter sequence for representing 10 levels of grey is
 
 */
 let capture;
-let img;
 let modifier;
-const step = 5;
 
-function preload() {
-  img = loadImage('lol.png');
-  // img = loadImage('color.jpg');
-  // img = loadImage('test.png');
-}
+const step = 7; // Tweak this value
+
+function preload() {}
 function setup() {
-  createCanvas(img.width, img.height).parent('sketch-holder');
-  // capture = createCapture(VIDEO);
-  // capture.size(480, 360);
-  modifier = new Modifier(img);
-  modifier.downsample(step);
+  createCanvas(480, 360).parent('sketch-holder');
+
+  capture = createCapture(VIDEO);
+  capture.size(480, 360);
+  capture.hide();
+
+  modifier = new Modifier(capture);
+}
+
+function draw() {
+  modifier.show(capture);
+  modifier.convert(step);
 }
 
 function keyPressed() {
   if (key === 'q') isLooping() ? noLoop() : loop();
-  if (key === 'r') modifier.reset();
-  if (key === '1') modifier.convert(step);
+  if (key === 'r') redraw();
+  if (key === '1') console.log(frameRate());
 }
