@@ -27,7 +27,7 @@ class Modifier {
     // fill(random(255), random(255), random(255));
 
     // Tweak this value
-    textSize(step + 2);
+    textSize(step + 1);
 
     let width = this.img.width;
     let height = this.img.height;
@@ -52,13 +52,20 @@ class Modifier {
       ) {
         let shade = this.img.pixels[outerHorizontal]; // Greyscale Value
         let charIndex;
+        let cLen = this.chars.length - 1;
+
         if (this.colorSwap) {
-          charIndex = floor(map(shade, 255, 0, 0, 68));
+          charIndex = floor(map(shade, 255, 0, 0, cLen));
         } else {
-          charIndex = floor(map(shade, 255, 0, 68, 0));
+          charIndex = floor(map(shade, 255, 0, cLen, 0));
         }
         let char = this.chars[charIndex];
 
+        //============= VARIABLE TEXT SIZE TESTING ============
+        // let s = map(charIndex, 0, cLen, 10, 4);
+        // textSize(s);
+
+        //=====================================================
         text(char, x, y);
         x += step;
       }

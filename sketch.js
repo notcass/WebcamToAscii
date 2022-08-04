@@ -13,9 +13,8 @@ A more convincing but shorter sequence for representing 10 levels of grey is
 let capture;
 let modifier;
 
-const step = 7; // Tweak this value
+const step = 4; // Tweak this value
 
-function preload() {}
 function setup() {
   createCanvas(480, 360).parent('sketch-holder');
 
@@ -24,6 +23,13 @@ function setup() {
   capture.hide();
 
   modifier = new Modifier(capture);
+
+  // textFont('Helvetica');
+  // textFont('Arial');
+  // textFont('Courier New');
+  // textFont('Verdana');
+  textStyle(BOLD);
+  // textStyle(ITALIC);
 }
 
 function draw() {
