@@ -1,19 +1,21 @@
 /// <reference path="libraries/p5.global-mode.d.ts" />
 
 /*
- "Standard" character ramp for grey scale pictures, black -> white.
+
+  "Standard" character ramp for grey scale pictures, black -> white.
 
    "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. "
 
-A more convincing but shorter sequence for representing 10 levels of grey is
+  A less convincing but shorter sequence for representing 10 levels of grey is
 
-   " .:-=+*#%@"
+    "@%#*+=-:. "
 
 */
 let capture;
 let modifier;
 
-const step = 4; // Tweak this value
+// Tweak
+const step = 4;
 
 function setup() {
   createCanvas(480, 360).parent('sketch-holder');
@@ -22,12 +24,12 @@ function setup() {
   capture.size(480, 360);
   capture.hide();
 
-  modifier = new Modifier(capture);
+  modifier = new Modifier(capture, false, false);
 
   // textFont('Helvetica');
   // textFont('Arial');
   // textFont('Courier New');
-  // textFont('Verdana');
+  textFont('Verdana');
   textStyle(BOLD);
   // textStyle(ITALIC);
 }

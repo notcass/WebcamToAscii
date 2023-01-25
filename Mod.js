@@ -1,9 +1,11 @@
 class Modifier {
-  constructor(capture) {
+  constructor(capture, short, swap) {
     this.img = capture;
-    this.chars =
+    this.colorSwap = swap;
+    this.long =
       '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,"^`\'. ';
-    this.colorSwap = false;
+    this.short = '@%#*+=-:. ';
+    this.chars = short ? this.short : this.long;
   }
 
   show(frame) {
@@ -27,7 +29,7 @@ class Modifier {
     // fill(random(255), random(255), random(255));
 
     // Tweak this value
-    textSize(step + 1);
+    textSize(step);
 
     let width = this.img.width;
     let height = this.img.height;
